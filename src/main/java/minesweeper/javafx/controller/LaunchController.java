@@ -11,15 +11,19 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
+import javax.inject.Inject;
 
 
 public class LaunchController {
 
-    private static int rowNumber = 0;
-    private static int columnNumber = 0;
-    private static int mineNumber = 0;
-    private static int difficultyLevel = 0;
+    private int rowNumber = 0;
+    private int columnNumber = 0;
+    private int mineNumber = 0;
+    private int difficultyLevel = 0;
 
+
+    @Inject
+    private FXMLLoader fxmlLoader;
 
     @FXML
     private TextField playerNameTextField;
@@ -60,7 +64,8 @@ public class LaunchController {
 
 
     public void startAction(ActionEvent actionEvent) throws IOException {
-
+        System.out.println("rowNumber = " + rowNumber);
+        System.out.println("difficultyLevel = " + difficultyLevel);
         if(playerNameTextField.getText().isEmpty()){
             playerNameErrorLabel.setWrapText(true);
             playerNameErrorLabel.setMaxWidth(100);
@@ -69,14 +74,22 @@ public class LaunchController {
             playerNameErrorLabel.setText("");
             difficultyErrorLabel.setWrapText(true);
             difficultyErrorLabel.setMaxWidth(120);
-            difficultyErrorLabel.setText("Please choose a difficulity first!");
+            difficultyErrorLabel.setText("Please choose a difficulty first!");
         }else {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/game.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/game.fxml"));
+            Parent root = fxmlLoader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            GameController gameController = fxmlLoader.<GameController>getController();
+            gameController.setRowNumber(rowNumber);
+            gameController.setColumnNumber(columnNumber);
+            gameController.setMineNumber(mineNumber);
             stage.setScene(new Scene(root));
             stage.show();
+
+
         }
 
     }
+
 
 }
