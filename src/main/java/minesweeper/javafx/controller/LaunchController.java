@@ -14,7 +14,6 @@ import javafx.event.ActionEvent;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
-import javax.lang.model.SourceVersion;
 
 @Slf4j
 public class LaunchController {
@@ -86,7 +85,7 @@ public class LaunchController {
             difficultyErrorLabel.setMaxWidth(120);
             difficultyErrorLabel.setText("Please choose a difficulty first!");
         }else {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/test.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/game.fxml"));
             Parent root = fxmlLoader.load();
             fxmlLoader.<GameController>getController().setRowNumber(rowNumber);
             fxmlLoader.<GameController>getController().setColumnNumber(columnNumber);
