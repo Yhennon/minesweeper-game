@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<SplitPane dividerPositions="0.11809045226130653" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minesweeper.javafx.controller.GameController">
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minesweeper.javafx.controller.GameController">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-         <children>
-            <Label layoutX="56.0" layoutY="13.0" text="Label" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="10.0" />
-            <Label layoutX="471.0" layoutY="6.0" text="Label" AnchorPane.leftAnchor="485.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="10.0" />
-         </children></AnchorPane>
     <AnchorPane maxHeight="270.0" maxWidth="270.0" minHeight="0.0" minWidth="0.0" prefHeight="270.0" prefWidth="270.0">
          <children>
             <GridPane fx:id="gridPane">

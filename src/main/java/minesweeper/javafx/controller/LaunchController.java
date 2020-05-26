@@ -11,9 +11,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.inject.Inject;
+import javax.lang.model.SourceVersion;
 
-
+@Slf4j
 public class LaunchController {
 
     private int rowNumber = 0;
@@ -40,7 +43,10 @@ public class LaunchController {
         columnNumber = 9;
         mineNumber = 10;
         difficultyLevel = 1;
-        //TODO logolás ("Set to Medium"+rowNumber+columnNumber+mineNumber);
+        log.info("The game difficulty is set to Easy. " +
+                "The number of rows is {}, " +
+                "the number of columns is {}, " +
+                "The number of mines is {}",rowNumber,columnNumber,mineNumber);
     }
 
     public void chooseMediumGame(ActionEvent choose_medium_game) {
@@ -49,23 +55,27 @@ public class LaunchController {
         columnNumber = 16;
         mineNumber = 40;
         difficultyLevel = 2;
-        //TODO logolás ...
+        log.info("The game difficulty is set to Medium. " +
+                "The number of rows is {}, " +
+                "the number of columns is {}, " +
+                "The number of mines is {}",rowNumber,columnNumber,mineNumber);
     }
 
     public void chooseHardGame(ActionEvent choose_hard_game) {
         difficultyErrorLabel.setText("");
-        rowNumber = 30;
-        columnNumber = 16;
+        rowNumber = 16;
+        columnNumber = 30;
         mineNumber = 99;
         difficultyLevel = 3;
-        //TODO logolás ...
+        log.info("The game difficulty is set to Hard. " +
+                "The number of rows is {}, " +
+                "the number of columns is {}, " +
+                "The number of mines is {}",rowNumber,columnNumber,mineNumber);
     }
 
 
 
     public void startAction(ActionEvent actionEvent) throws IOException {
-        System.out.println("rowNumber = " + rowNumber);
-        System.out.println("difficultyLevel = " + difficultyLevel);
         if(playerNameTextField.getText().isEmpty()){
             playerNameErrorLabel.setWrapText(true);
             playerNameErrorLabel.setMaxWidth(100);
@@ -76,19 +86,29 @@ public class LaunchController {
             difficultyErrorLabel.setMaxWidth(120);
             difficultyErrorLabel.setText("Please choose a difficulty first!");
         }else {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/game.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/test.fxml"));
             Parent root = fxmlLoader.load();
+            fxmlLoader.<GameController>getController().setRowNumber(rowNumber);
+            fxmlLoader.<GameController>getController().setColumnNumber(columnNumber);
+            fxmlLoader.<GameController>getController().setDifficultyLevel(difficultyLevel);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            GameController gameController = fxmlLoader.<GameController>getController();
-            gameController.setRowNumber(rowNumber);
-            gameController.setColumnNumber(columnNumber);
-            gameController.setMineNumber(mineNumber);
-            stage.setScene(new Scene(root));
-            stage.show();
-
+            switch (difficultyLevel){
+                case 1:
+                    stage.setScene(new Scene(root,270+20,270+50));
+                    stage.show();
+                    break;
+                case 2:
+                    stage.setScene(new Scene(root,480,480));
+                    stage.show();
+                    break;
+                case 3:
+                    stage.setScene(new Scene(root,900,480));
+                    stage.show();
+                    break;
+            }
 
         }
-
+        log.info("Starting game...");
     }
 
 
